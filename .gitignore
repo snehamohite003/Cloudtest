@@ -1,0 +1,33 @@
+# Project specific
+.idea/
+*.iml
+target/
+out/
+
+# Reports (generated during test run)
+reports/*.html
+reports/*.json
+reports/*.xml
+reports/extent-reports/
+
+# Screenshots
+screenshots/*.png
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.classpath
+.project
+.settings/
+*.class
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
