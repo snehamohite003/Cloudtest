@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Project specific
 .idea/
 *.iml
@@ -31,3 +32,38 @@ Thumbs.db
 # Logs
 *.log
 
+=======
+# Project specific
+.idea/
+*.iml
+target/
+out/
+
+# Reports (generated during test run)
+reports/*.html
+reports/*.json
+reports/*.xml
+reports/extent-reports/
+
+# Screenshots
+screenshots/*.png
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.classpath
+.project
+.settings/
+*.class
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+>>>>>>> 9da37447e79dce6e6333ce4b5ef3bbba8e2f3ac5
