@@ -8,6 +8,9 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DriverManager {
 
@@ -27,7 +30,18 @@ public class DriverManager {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized");
                 chromeOptions.addArguments("--disable-notifications");
-                driver.set(new ChromeDriver(chromeOptions));
+                // CloudTest's Util.isWebUITest() returns true when navigator.webdriver is true,
+                // which makes the login/license pages use test-mode shortcuts (no real license check).
+                // Hide the automation flag so the app behaves like a real user session.
+                chromeOptions.addArguments("--disable-blink-features=AutomationControlled");
+                chromeOptions.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+                chromeOptions.setExperimentalOption("useAutomationExtension", false);
+                ChromeDriver chromeDriver = new ChromeDriver(chromeOptions);
+                // Fallback for newer Chrome versions: override navigator.webdriver on every new document.
+                Map<String, Object> cdpArgs = new HashMap<>();
+                cdpArgs.put("source", "Object.defineProperty(navigator, 'webdriver', {get: () => false});");
+                chromeDriver.executeCdpCommand("Page.addScriptToEvaluateOnNewDocument", cdpArgs);
+                driver.set(chromeDriver);
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
